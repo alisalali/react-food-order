@@ -5,10 +5,10 @@ import Cart from "./components/Cart/Cart";
 function App() {
   return (
     <Fragment>
+      <Cart />
       <Header />
       <main>
         <Meals />
-        <Cart/>
       </main>
     </Fragment>
   );
