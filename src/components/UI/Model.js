@@ -1,9 +1,8 @@
 import React, { Fragment } from "react";
-import Card from "./Card";
 import classes from "./Model.module.css";
 import ReactDOM from "react-dom";
 const Backdrop = (props) => {
-  return <div className={classes.backdrop} />;
+  return <div className={classes.backdrop} onClick={props.onClose} />;
 };
 const ModelOverlay = (props) => {
   return <div className={classes.modal}>{props.children}</div>;
@@ -21,7 +20,10 @@ const Model = (props) => {
         </Card>;
       </ModelOverlay> */}
       {/* createPortal */}
-      {ReactDOM.createPortal(<Backdrop />, portalElement)}
+      {ReactDOM.createPortal(
+        <Backdrop onClose={props.onClose} />,
+        portalElement
+      )}
       {ReactDOM.createPortal(
         <ModelOverlay>{props.children}</ModelOverlay>,
         portalElement
