@@ -9,7 +9,7 @@ const AvailableMeals = () => {
   const { error, isLoading, sendRequest: fetchMeals } = useHttp();
 
   useEffect(() => {
-    const transformingRequest = (mealObj) => {
+    const transformingMeals = (mealObj) => {
       const loadedMeals = [];
       for (const mealKey in mealObj) {
         loadedMeals.push({
@@ -27,36 +27,9 @@ const AvailableMeals = () => {
       {
         url: "https://react-food-order-87a4b-default-rtdb.europe-west1.firebasedatabase.app/meals.json",
       },
-      transformingRequest
+      transformingMeals
     );
   }, [fetchMeals]);
-
-  /* const DUMMY_MEALS = [
-    {
-      id: "m1",
-      name: "Sushi",
-      description: "Finest fish and veggies",
-      price: 22.99,
-    },
-    {
-      id: "m2",
-      name: "Schnitzel",
-      description: "A german specialty!",
-      price: 16.5,
-    },
-    {
-      id: "m3",
-      name: "Barbecue Burger",
-      description: "American, raw, meaty",
-      price: 12.99,
-    },
-    {
-      id: "m4",
-      name: "Green Bowl",
-      description: "Healthy...and green...",
-      price: 18.99,
-    },
-  ]; */
 
   const mealList = meals.map((meal) => (
     <MealItem
@@ -68,11 +41,25 @@ const AvailableMeals = () => {
     ></MealItem>
   ));
 
+  if (isLoading) {
+    return (
+      <section>
+        <p className={classes["mealsIsLoading"]}>Loading ...</p>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section>
+        <p className={classes.mealsError}>{error}</p>
+      </section>
+    );
+  }
+
   return (
     <section className={classes.meals}>
       <Card>
-        {isLoading && <p>loading</p>}
-        {error && <p>{error}</p>}
         <ul>{mealList}</ul>
       </Card>
     </section>

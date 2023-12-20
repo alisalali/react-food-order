@@ -3,8 +3,6 @@ import { useState, useCallback } from "react";
 const useHttp = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const url =
-    "https://react-food-order-87a4b-default-rtdb.europe-west1.firebasedatabase.app/meals.json";
 
   const sendRequest = useCallback(async (requestConfig, applyData) => {
     setIsLoading(true);
@@ -18,6 +16,7 @@ const useHttp = () => {
       const data = await response.json();
       applyData(data);
     } catch (error) {
+      setIsLoading(false);
       setError(error.message || "Something went wrong!");
     }
     setIsLoading(false);
