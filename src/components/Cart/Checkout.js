@@ -58,8 +58,15 @@ const Checkout = (props) => {
       console.log("form is not valid", formIsValid);
       return;
     }
-    console.log("form is successfully", {
-      Address: { nameInput, streetInput, postalInput, cityInput },
+    // console.log("form is successfully", {
+    //   Address: { nameInput, streetInput, postalInput, cityInput },
+    // });
+
+    props.onConfirm({
+      name: nameInput,
+      street: streetInput,
+      postal: postalInput,
+      city: cityInput,
     });
     restNameInput();
     restStreetInput();
